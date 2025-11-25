@@ -130,8 +130,6 @@ class UserRepository:
         updates.append("updated_at = CURRENT_TIMESTAMP")
         params.append(id)
         
-        print(params)
-        
         query = f"""
         UPDATE users
         SET {','.join(updates)}
