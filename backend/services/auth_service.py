@@ -11,7 +11,7 @@
 	# •	(Optional) logout, refreshToken, etc.
  
  
-from refresh_token_repository import RefreshTokenRepository
+from backend.repositories.refresh_token_repository import RefreshTokenRepository
 from backend.repositories.user_repository import UserRepository
 from backend.infrastructure.security import Passwords, Tokens
 import datetime

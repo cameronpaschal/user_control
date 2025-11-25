@@ -31,4 +31,4 @@ async def test_auth_login(username: str, password: str) -> tuple[str,str]:
 
 
 
-asyncio.run(test_auth_login("bigpoppa23", "ILOVEPI4")) #should be ILOVEPI44
+asyncio.run(test_auth_login("bigpoppa23", "H@ppyFeet22")) 

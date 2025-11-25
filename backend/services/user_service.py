@@ -44,7 +44,7 @@ class UserService:
         return await self._ur.delete_user(id_to_be_deleted)
     
     
-    async def register_user(self, username: str, email: str, display_name: str, job_title: str, password:str, bio: Optional[str] = None) -> str:
+    async def create_new_user(self, username: str, email: str, display_name: str, job_title: str, password:str, bio: Optional[str] = None) -> str:
         email = email.strip().lower()
         username = username.strip().lower()
  
@@ -75,7 +75,7 @@ class UserService:
     async def update_password(self, id: int, new_password: str) -> str:
         self._validate_password(new_password)
         
-        new_password = self._pw.hash_pw(new_password)
+        new_password = await self._pw.hash_pw(new_password)
         
         return await self._ur.update_user(id, new_pw_hash=new_password)
     
@@ -94,6 +94,7 @@ class UserService:
         try:
             valid = validate_email(new_email)
             normalized = valid.email
+            print(normalized)
             
             if await self._ur.find_by_email(normalized):
                 raise ValueError("Email already taken")

@@ -104,7 +104,8 @@ class UserRepository:
             params.append(new_username)
             
         if new_email:
-            updates.append(f"email = ${len(updates) + 1}")
+            updates.append(f"email = ${len(updates) + 1}, email_verified_at = null")
+            # updates.append("email_verified_at = null")
             params.append(new_email)
             
         if new_display_name:
@@ -123,15 +124,13 @@ class UserRepository:
             updates.append(f"pw_hash = ${len(updates) + 1}")
             params.append(new_pw_hash)
             
-        if email_verified_at:
-            updates.append(f"email_verified_at = ${len(updates) + 1}")
-            params.append(email_verified_at)
-            
         if not updates:
             raise ValueError("no updates requested")
         
         updates.append("updated_at = CURRENT_TIMESTAMP")
         params.append(id)
+        
+        print(params)
         
         query = f"""
         UPDATE users
