@@ -30,10 +30,11 @@ class AuthService:
         else: 
             raise IncorrectPasswordError("Invalid password")
         
-    async def refresh_jwt(self, user_id: int, refresh_token: str) -> tuple[str, str]:
+    async def refresh_jwt(self, token_id: int, refresh_token: str) -> tuple[str, str]:
         
-        srt = await self._tr.find_by_user_id(user_id) #system refresh token object (token, expires, revoked)
+        srt = await self._tr.find_by_token_id(token_id) #system refresh token object (token, expires, revoked)
         sys_revoked = srt["revoked"]
+        
   
         if sys_revoked:
             raise InvalidTokenError("Revoked refresh token")
@@ -44,7 +45,7 @@ class AuthService:
             raise InvalidTokenError("Expired Token")
         
         sys_r_token = srt["refresh_token"]
-        
+        user_id = srt["user_id"]
         
         if await self._sec.verify_pw(refresh_token, sys_r_token):
             await self._tr.revoke_refresh_token(sys_r_token) #revoke the old refresh token
@@ -70,6 +71,6 @@ class AuthService:
         refresh = await self._tok.generate_random_token()
         expiry_date = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=14)
         refresh_hashed = await self._sec.hash_pw(refresh)
-        await self._tr.store_refresh_token(user_id, refresh_hashed, expiry_date)
+        token_id = int(await self._tr.store_refresh_token(user_id, refresh_hashed, expiry_date))
         
-        return jwt, f"{user_id}.{refresh}"
+        return jwt, f"{token_id}.{refresh}"

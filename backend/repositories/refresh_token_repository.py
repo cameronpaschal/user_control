@@ -31,10 +31,9 @@ class RefreshTokenRepository:
         return await self._db.fetch_val(query, params=params)
     
     async def revoke_refresh_token(self, token: str) -> None:
-        
+        #this could be changed back to revoking the token rather than deleting it, or another method could be created for admin functionality
         query = """
-        UPDATE refresh_tokens
-        SET revoked = True
+        DELETE FROM refresh_tokens
         WHERE refresh_token = $1;
         """
         
@@ -54,12 +53,12 @@ class RefreshTokenRepository:
         
         return await self._db.fetch_one(query, params=params)
     
-    async def find_by_user_id(self, id: int) -> dict:
+    async def find_by_token_id(self, id: int) -> dict:
         
         query = """
-        SELECT refresh_token, expires, revoked
+        SELECT user_id, refresh_token, expires, revoked
         FROM refresh_tokens
-        WHERE user_id = $1;
+        WHERE token_id = $1;
         """
         
         params = [id]

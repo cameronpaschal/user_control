@@ -64,7 +64,7 @@ class UserRepository:
     async def find_all(self) -> list[dict]:
         
         query = """
-        SELECT * 
+        SELECT user_id, username, email, display_name, bio, job_title, created_at, updated_at, email_verified_at 
         FROM users;
         """
         return await self._db.fetch_all(query)
