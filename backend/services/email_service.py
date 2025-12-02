@@ -4,6 +4,7 @@ from backend.repositories.user_repository import UserRepository
 from backend.repositories.email_token_repository import EmailTokenRepository
 from backend.infrastructure.security import Passwords, Tokens
 from backend.infrastructure.db import AsyncDatabase
+from backend.infrastructure.errors import InvalidTokenError, UserNotFoundError
 import datetime
 
 class EmailService:
@@ -24,7 +25,7 @@ class EmailService:
         
         token_id = await self._er.store_email_token(user_id, vs_hashed, (created_at + datetime.timedelta(hours=24)), created_at)
         
-        #send_email(email, url)
+        #send_email(email, url) (Create this functionality)
         url = f"https://mywebsite.com/verify-email?token={token_id}.{verification_string}"
         return url
     
@@ -36,6 +37,9 @@ class EmailService:
         
         payload = await self._er.find_by_token_id(token_id)
         
+        if not payload or payload is None:
+            raise InvalidTokenError("Token not found")
+        
         user_id = payload.get("user_id")
         stored_token = payload.get("email_token_hash")
         expires_at = payload.get("expires_at")
@@ -45,19 +49,19 @@ class EmailService:
         current_time = datetime.datetime.now(datetime.timezone.utc)
         
         if not await self._pw.verify_pw(raw_token, stored_token):
-            raise ValueError("Invalid token, token doesn't match")
+            raise InvalidTokenError("Invalid token, token doesn't match")
         
         if expires_at < current_time:
-            raise ValueError("Expired token")
+            raise InvalidTokenError("Expired token")
         
         if used_at:
-            raise ValueError("Token has already been used")
+            raise InvalidTokenError("Token has already been used")
         
         if not await self._er.mark_email_token_verified(token_id):
-            raise ValueError("Token Not Found")
+            raise InvalidTokenError("Token Not Found")
         
         if not await self._ur.update_user(user_id, email_verified_at=current_time):
-            raise ValueError("User not found")
+            raise UserNotFoundError("User not found")
     
     
     async def resend_verification(self, user_id: str, email: str) -> str:

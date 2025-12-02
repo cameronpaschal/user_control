@@ -28,7 +28,7 @@ class UserRepository:
         
         
         query = """
-        SELECT *
+        SELECT user_id, username, email, display_name, bio, job_title, created_at, updated_at, email_verified_at
         FROM users
         WHERE user_id = $1
         LIMIT 1;
@@ -39,6 +39,7 @@ class UserRepository:
     
     
     async def find_by_username(self, username: str) -> Optional[dict]:
+        """used exclusively for passwords"""
         
         query = """
         SELECT *
@@ -52,7 +53,7 @@ class UserRepository:
     async def find_by_email(self, email: str) -> Optional[dict]:
         
         query = """
-        SELECT *
+        SELECT user_id, username, email, display_name, bio, job_title, created_at, updated_at, email_verified_at
         FROM users
         WHERE email = $1
         LIMIT 1;

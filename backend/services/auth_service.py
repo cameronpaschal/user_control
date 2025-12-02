@@ -1,19 +1,10 @@
 
-
-	# •	Responsibilities:
-	# •	authenticate(username, password):
-	# •	Fetch user by username using userRepository.
-	# •	Verify password against hashed password (via security utilities).
-	# •	If valid:
-	# •	Generate access token (e.g. JWT with user id, role, expiry).
-	# •	Optionally generate refresh token.
-	# •	Return token(s) and user info.
-	# •	(Optional) logout, refreshToken, etc.
  
  
 from backend.repositories.refresh_token_repository import RefreshTokenRepository
 from backend.repositories.user_repository import UserRepository
 from backend.infrastructure.security import Passwords, Tokens
+from backend.infrastructure.errors import InvalidTokenError, IncorrectPasswordError
 import datetime
  
 class AuthService:
@@ -37,7 +28,7 @@ class AuthService:
             return await self._new_tokens(u["user_id"], u["username"], u["job_title"])
         
         else: 
-            raise ValueError("Invalid password")
+            raise IncorrectPasswordError("Invalid password")
         
     async def refresh_jwt(self, user_id: int, refresh_token: str) -> tuple[str, str]:
         
@@ -45,12 +36,12 @@ class AuthService:
         sys_revoked = srt["revoked"]
   
         if sys_revoked:
-            return ValueError("Revoked refresh token")
+            raise InvalidTokenError("Revoked refresh token")
         
         sys_expires = srt["expires"]
         
         if sys_expires < datetime.datetime.now(datetime.timezone.utc):
-            return ValueError("Expired Token")
+            raise InvalidTokenError("Expired Token")
         
         sys_r_token = srt["refresh_token"]
         
@@ -66,15 +57,11 @@ class AuthService:
             return await self._new_tokens(user_id, username, job_title)
         
         else:
-            return ValueError("Refresh token doesn't match")
+            raise InvalidTokenError("Refresh token doesn't match")
     
     async def verify_jwt(self, jwt: str) -> dict:
         payload = await self._tok.verify_jwt(jwt)
-        
-        if payload.get("error_msg") != None:
-            return ValueError(payload["error_msg"])
-        else:
-            return payload
+        return payload
     
     async def _new_tokens(self, user_id:str , username: str, job_title:str) -> tuple[str, str]:
         
@@ -85,4 +72,4 @@ class AuthService:
         refresh_hashed = await self._sec.hash_pw(refresh)
         await self._tr.store_refresh_token(user_id, refresh_hashed, expiry_date)
         
-        return jwt, refresh
+        return jwt, f"{user_id}.{refresh}"
