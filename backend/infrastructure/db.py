@@ -1,9 +1,3 @@
-# Instructions for use: 
-# db_config = DatabaseConfig.from_env()
-# async_db = AsyncDatabase(db_config)
-
-# In FastAPI startup event: await async_db.init_pool()
-# In FastAPI shutdown event: await async_db.close_pool()
 
 from dataclasses import dataclass
 import os

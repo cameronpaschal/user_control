@@ -1,14 +1,4 @@
-	# •	Responsibilities:
-	# •	Interact directly with PostgreSQL queries (or ORM).
-	# •	Methods like:
-	# •	findById(id)
-	# •	findByUsername(username)
-	# •	findAll()
-	# •	create(userRecord)
-	# •	update(id, updatedFields)
-	# •	delete(id)
-	# •	Return plain data objects.
- 
+
  
 from backend.infrastructure.db import AsyncDatabase
 import datetime

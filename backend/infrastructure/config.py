@@ -1,12 +1,4 @@
-	# •	Sources:
-	# •	Environment variables (e.g. .env file).
- 
- 	# •	Values:
-	# •	DB connection string / params.
-	# •	JWT secret / keys.
-	# •	Token expiration times.
-	# •	Server port.
-	# •	Log level.
+
 
 from dataclasses import dataclass
 import os

@@ -1,10 +1,4 @@
-	# •	Responsibilities:
-	# •	Password hashing:
-	# •	Functions to hash a plaintext password and verify it.
-	# •	Token utilities:
-	# •	Generate JWT (or other token type).
-	# •	Verify and decode tokens.
-	# •	Possibly random ID / token generation.
+
  
 from passlib.hash import argon2
 import jwt

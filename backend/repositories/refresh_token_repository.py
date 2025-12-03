@@ -1,8 +1,3 @@
-	# •	Only if using DB-stored refresh tokens or sessions.
-	# •	Methods:
-	# •	storeRefreshToken(userId, token, expiry)
-	# •	revokeRefreshToken[token]
-	# •	findByToken[token]
 
 from backend.infrastructure.db import AsyncDatabase
 import datetime

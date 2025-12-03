@@ -1,21 +1,4 @@
 
-
-	# •	Responsibilities:
-	# •	Implement core user-related business rules:
-	# •	getAllUsers()
-	# •	getUserById(id)
-	# •	createUser(userData)
-	# •	Validate domain rules (unique username, password requirements).
-	# •	Hash password before saving.
-	# •	Call userRepository.create.
-	# •	updateUser(id, changes)
-	# •	Decide which fields are allowed to be updated.
-	# •	If password changes, hash it.
-	# •	Call userRepository.update.
-	# •	deleteUser(id)
-	# •	Possibly disallow deleting oneself or enforce rules.
-	# •	Notes:
-	    # •	Service layer should not know about HTTP. It deals in domain objects / DTOs and throws domain-specific errors (e.g. UserNotFound, ValidationError).
      
 from backend.repositories.user_repository import UserRepository
 from backend.infrastructure.security import Passwords
