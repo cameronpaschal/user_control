@@ -26,7 +26,7 @@ class EmailService:
         token_id = await self._er.store_email_token(user_id, vs_hashed, (created_at + datetime.timedelta(hours=24)), created_at)
         
         #send_email(email, url) (Create this functionality)
-        url = f"https://mywebsite.com/verify-email?token={token_id}.{verification_string}"
+        url = f"https://localhost:8000/verify-email?token={token_id}.{verification_string}"
         return url
     
     

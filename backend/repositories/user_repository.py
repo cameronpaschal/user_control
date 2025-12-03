@@ -124,6 +124,10 @@ class UserRepository:
         if new_pw_hash:
             updates.append(f"pw_hash = ${len(updates) + 1}")
             params.append(new_pw_hash)
+        
+        if email_verified_at:
+            updates.append(f"email_verified_at = ${len(updates) + 1}")
+            params.append(email_verified_at)
             
         if not updates:
             raise ValueError("no updates requested")
