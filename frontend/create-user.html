@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Control | Create user</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a class="brand" href="./dashboard.html">User Control</a>
+      <div class="nav-links">
+        <a href="./dashboard.html">Dashboard</a>
+        <a href="./users.html">Users</a>
+        <a href="./create-user.html">Create user</a>
+        <a href="./verify.html">Verify email</a>
+        <button data-action="logout">Logout</button>
+      </div>
+      <div class="small" data-user-slot></div>
+    </nav>
+
+    <section class="card" style="margin-top: 24px;">
+      <div class="inline-actions">
+        <h1 style="margin: 0;">Create user</h1>
+        <a class="btn btn-secondary" href="./users.html">Back to list</a>
+      </div>
+      <p class="tagline">POST <code>/users/create</code> requires an authenticated caller. Passwords must meet the backend policy.</p>
+
+      <div id="create-status" class="status" hidden></div>
+
+      <form id="create-form" class="form grid two-col">
+        <label>
+          <div class="eyebrow">Username</div>
+          <input class="input" type="text" name="username" required>
+        </label>
+        <label>
+          <div class="eyebrow">Display name</div>
+          <input class="input" type="text" name="display_name" required>
+        </label>
+        <label>
+          <div class="eyebrow">Email</div>
+          <input class="input" type="email" name="email" required>
+        </label>
+        <label>
+          <div class="eyebrow">Job title</div>
+          <input class="input" type="text" name="job_title" required>
+        </label>
+        <label>
+          <div class="eyebrow">Password</div>
+          <input class="input" type="password" name="password" required>
+        </label>
+        <label>
+          <div class="eyebrow">Bio</div>
+          <textarea class="input" name="bio" rows="3" placeholder="Optional"></textarea>
+        </label>
+        <div class="grid" style="grid-column: 1 / -1; gap: 10px;">
+          <button class="btn" type="submit">Create</button>
+          <div class="small">Backend enforces username uniqueness and password rules (length, upper/lowercase, digit, symbol).</div>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script type="module" src="./scripts/create-user.js"></script>
+</body>
+</html>

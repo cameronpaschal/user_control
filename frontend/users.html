@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Control | Users</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a class="brand" href="./dashboard.html">User Control</a>
+      <div class="nav-links">
+        <a href="./dashboard.html">Dashboard</a>
+        <a href="./users.html">Users</a>
+        <a href="./create-user.html">Create user</a>
+        <a href="./verify.html">Verify email</a>
+        <button data-action="logout">Logout</button>
+      </div>
+      <div class="small" data-user-slot></div>
+    </nav>
+
+    <section class="card" style="margin-top: 24px;">
+      <div class="inline-actions">
+        <h1 style="margin: 0;">All users</h1>
+        <a class="btn btn-secondary" href="./create-user.html">New user</a>
+        <button class="btn btn-secondary" id="refresh-users">Refresh</button>
+      </div>
+      <p class="tagline">Uses <code>GET /users</code> to fetch all records. Requires a valid JWT in the <code>Authorization</code> header.</p>
+      <div id="users-status" class="status" hidden></div>
+      <table class="table" id="users-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Job title</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="users-body"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script type="module" src="./scripts/users.js"></script>
+</body>
+</html>

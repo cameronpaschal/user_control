@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Control | User detail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a class="brand" href="./dashboard.html">User Control</a>
+      <div class="nav-links">
+        <a href="./dashboard.html">Dashboard</a>
+        <a href="./users.html">Users</a>
+        <a href="./create-user.html">Create user</a>
+        <a href="./verify.html">Verify email</a>
+        <button data-action="logout">Logout</button>
+      </div>
+      <div class="small" data-user-slot></div>
+    </nav>
+
+    <section class="card" style="margin-top: 24px;">
+      <div class="inline-actions">
+        <h1 style="margin: 0;">User detail</h1>
+        <a class="btn btn-secondary" href="./users.html">Back to list</a>
+        <button class="btn btn-secondary" id="generate-email-link" hidden>Generate verification link</button>
+        <button class="btn btn-secondary" id="resend-email-link" hidden>Resend verification link</button>
+      </div>
+      <p class="tagline">Uses <code>GET /users/:id</code> to load the record. Email verification actions target the logged-in user.</p>
+      <div id="user-status" class="status" hidden></div>
+      <div id="user-content" class="grid two-col"></div>
+    </section>
+  </div>
+
+  <script type="module" src="./scripts/user.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Control | Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a class="brand" href="./dashboard.html">User Control</a>
+      <div class="nav-links">
+        <a href="./dashboard.html">Dashboard</a>
+        <a href="./users.html">Users</a>
+        <a href="./create-user.html">Create user</a>
+        <a href="./verify.html">Verify email</a>
+        <button data-action="logout">Logout</button>
+      </div>
+      <div class="small" data-user-slot></div>
+    </nav>
+
+    <section class="hero">
+      <div class="card">
+        <h1>Control center</h1>
+        <p class="tagline">Inspect users, create accounts, and manage email verification with the FastAPI backend.</p>
+        <div class="grid two-col">
+          <div>
+            <div class="eyebrow">Your auth token</div>
+            <div id="token-preview" class="small"></div>
+          </div>
+          <div>
+            <div class="eyebrow">Current user</div>
+            <div id="current-user" class="small"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Quick actions</h2>
+        <div class="grid two-col">
+          <a class="btn btn-secondary" href="./users.html">View all users</a>
+          <a class="btn btn-secondary" href="./create-user.html">Create a user</a>
+          <a class="btn btn-secondary" href="./verify.html">Verify email token</a>
+          <button class="btn btn-secondary" id="generate-link">Generate my verification link</button>
+        </div>
+        <div id="dashboard-status" class="status" hidden></div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="./scripts/dashboard.js"></script>
+</body>
+</html>

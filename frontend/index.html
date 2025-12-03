@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Control | Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a class="brand" href="./index.html">User Control</a>
+      <div class="nav-links">
+        <a href="./index.html">Sign in</a>
+        <a href="./verify.html">Verify email</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="card">
+        <h1>Welcome back</h1>
+        <p class="tagline">Use your username and password to request an access token from the FastAPI backend.</p>
+
+        <div id="login-status" class="status" hidden></div>
+
+        <form id="login-form" class="form">
+          <div class="stack">
+            <label>
+              <div class="eyebrow">Username</div>
+              <input class="input" type="text" name="username" autocomplete="username" required>
+            </label>
+            <label>
+              <div class="eyebrow">Password</div>
+              <input class="input" type="password" name="password" autocomplete="current-password" required>
+            </label>
+          </div>
+          <button class="btn" type="submit">Sign in</button>
+          <div class="small">We set the refresh token as an HTTP-only cookie and keep the access token in local storage.</div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>How this works</h2>
+        <div class="stack">
+          <div class="eyebrow">Auth flow</div>
+          <p class="small">POST <code>/auth/login</code> returns an access token and sets the refresh token cookie. Use the JWT in the <code>Authorization</code> header to access protected routes.</p>
+          <div class="eyebrow">Users</div>
+          <p class="small">Visit the dashboard to pull all users, inspect a single user, or create accounts through <code>/users</code> routes.</p>
+          <div class="eyebrow">Email verification</div>
+          <p class="small">Generate and consume verification links via the <code>/auth/gen-email-verify</code> and <code>/auth/email-verify</code> endpoints.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="./scripts/login.js"></script>
+</body>
+</html>
