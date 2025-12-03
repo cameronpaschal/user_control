@@ -2,7 +2,7 @@ from fastapi import Depends, HTTPException, Request, status
 from backend.services.auth_service import AuthService
 from backend.services.user_service import UserService
 from backend.infrastructure.db import AsyncDatabase
-
+from backend.services.email_service import EmailService
     
 
 async def get_db(request: Request) -> AsyncDatabase:
@@ -14,6 +14,8 @@ async def get_user_service(db: AsyncDatabase = Depends(get_db)) -> UserService:
 async def get_auth_service(db: AsyncDatabase = Depends(get_db)) -> AuthService:
     return AuthService(db)
 
+async def get_email_service(db: AsyncDatabase = Depends(get_db)) -> EmailService:
+    return EmailService(db)
 
 async def get_current_user(request: Request,
                            auth_service: AuthService = Depends(get_auth_service)) -> dict:

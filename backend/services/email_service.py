@@ -66,7 +66,6 @@ class EmailService:
     
     async def resend_verification(self, user_id: str, email: str) -> str:
         user_tokens = await self._er.find_by_user_id(user_id)
-        print(user_tokens)
         if user_tokens:
             for d in user_tokens:
                 await self._er.mark_email_token_verified(d.get("id"))
